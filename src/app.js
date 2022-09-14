@@ -13,13 +13,7 @@ App = {
 
   // Refer https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
   // web 3 js helps client side application to connect to blockchain
-  loadWeb3: async () => {
-    if (typeof web3 !== "undefined") {
-      App.web3Provider = web3.currentProvider;
-      web3 = new Web3(web3.currentProvider);
-    } else {
-      window.alert("Please connect to Metamask.");
-    }
+  loadWeb3: window.addEventListener("load", async () => {
     // Modern dapp browsers...
     if (window.ethereum) {
       window.web3 = new Web3(ethereum);
@@ -36,7 +30,6 @@ App = {
     }
     // Legacy dapp browsers...
     else if (window.web3) {
-      App.web3Provider = web3.currentProvider;
       window.web3 = new Web3(web3.currentProvider);
       // Acccounts always exposed
       web3.eth.sendTransaction({
@@ -49,7 +42,7 @@ App = {
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
       );
     }
-  },
+  }),
 
   loadAccount: async () => {
     // Set the current blockchain account
